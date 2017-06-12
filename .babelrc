@@ -4,6 +4,6 @@
     "latest",
     "stage-1"
   ],
-  "plugins": ["syntax-flow"]
+  "plugins": ["syntax-flow","transform-flow-strip-types"]
 
 }

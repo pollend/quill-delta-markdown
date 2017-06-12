@@ -1,5 +1,4 @@
 import commonmark from 'commonmark';
-
 const _changeAttribute = (attributes, event, attribute, value) =>
 {
     if (event.entering) {
@@ -10,7 +9,7 @@ const _changeAttribute = (attributes, event, attribute, value) =>
     return attributes;
 }
 
-const _applyAttribute = (node, event, attributes, attribute) =>
+const _applyAttribute = (node: commonmark.Node, event, attributes, attribute) =>
 {
     if (typeof attribute === 'string') {
         _changeAttribute(attributes, event, attribute, true);
@@ -46,10 +45,11 @@ const _converters = [
     { filter: 'emph', attribute: 'italic' },
     { filter: 'strong', attribute: 'bold' },
 // TODO: script
-    { filter: 'link', attribute: (node, event, attributes) => {
+    { filter: 'link', attribute: (node: commonmark.Node, event, attributes) => {
         _changeAttribute(attributes, event, 'link', node.destination);
     }},
     { filter: 'text', makeDelta: (event, attributes) => {
+
         if (_isEmpty(attributes)) {
             return {insert: event.node.literal};
         } else {
@@ -73,7 +73,7 @@ const _converters = [
         }
         return { insert: "\n", attributes: {...attributes, header: event.node.level}};
     }},
-    { filter: 'list', lineAttribute: true, attribute: (node, event, attributes) => {
+    { filter: 'list', lineAttribute: true, attribute: (node: commonmark.Node, event, attributes) => {
         _changeAttribute(attributes, event, 'list', node.listType);
     }},
     { filter: 'paragraph', lineAttribute: true, makeDelta: (event, attributes) => {
@@ -89,10 +89,19 @@ const _converters = [
     }},
 
 // embeds
-    { filter: 'image', attribute: (node, event, attributes) => {
-        _changeAttribute(attributes, event, 'image', node.destination);
-        if (node.title) {
-            _changeAttribute(attributes, event, 'title', node.title);
+    { filter: 'image', makeDelta: ( event, attributes) => {
+        if (event.entering === false) {
+            return null;
+        }
+
+        if (event.node.title) {
+            _changeAttribute(attributes, event, 'title', event.node.title);
+        }
+
+        if (_isEmpty(attributes)) {
+            return { insert: {image: event.node.destination }};
+        } else {
+            return { insert: {image: event.node.destination }, attributes: {...attributes}};
         }
     }},
 
