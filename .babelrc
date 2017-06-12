@@ -1,6 +1,9 @@
 {
   "presets": [
+    "flow",
     "latest",
     "stage-1"
-  ]
+  ],
+  "plugins": ["syntax-flow"]
+
 }

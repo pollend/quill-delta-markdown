@@ -1,0 +1,15 @@
+
+{
+  "name": "quill-delta-markdown",
+  "repository": "bartv2/quill-delta-markdown",
+  "description": "To and from Markdown and Quill delta",
+  "version": "1.0.0",
+  "keywords": ["markdown", "quill", "delta"],
+  "main": "./dist/quill-delta-markdown.js",
+  "scripts": [
+    "src/index.js",
+    "src/fromDelta.js",
+    "src/toDelta.js"
+  ],
+  "license": "BSD-3-Clause"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "quill-delta-markdown",
+  "main": "./dist/quill-delta-markdown.js",
+  "homepage": "",
+  "authors": [
+    "Bart Visscher <bartv@thisnet.nl>",
+    "Michael Pollind <polli104@mail.chapman.edu>"
+  ],
+  "description": "Quill delta to markdown and back",
+  "keywords": [
+    "quillmark",
+    "quill-delta-markdown"
+  ],
+  "license": "BSD-3-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

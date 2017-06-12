@@ -2,11 +2,10 @@
   "name": "quill-delta-markdown",
   "version": "0.0.0",
   "description": "To and from Markdown and Quill delta",
-  "main": "index.js",
+  "main": "./dist/quill-delta-markdown.js",
   "scripts": {
-    "demo": "babel-node tools/demoServer.js",
-    "test": "mocha tools/testSetup.js \"tests/**/*.spec.js\" --reporter progress",
-    "test:watch": "mocha tools/testSetup.js \"tests/**/*.spec.js\" --reporter progress --watch"
+    "build": "webpack",
+    "test": "browserify -t coverify ./test/index.js --bare | node | coverify "
   },
   "keywords": [
     "quill",
@@ -18,32 +17,37 @@
     "email": "bartv@thisnet.nl"
   },
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bartv2/quill-delta-markdown.git"
-  },
   "devDependencies": {
     "autoprefixer": "^6.5.1",
-    "babel-cli": "6.14.0",
+    "babel-cli": "^6.24.1",
     "babel-core": "6.14.0",
+    "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.5",
     "babel-preset-latest": "6.14.0",
     "babel-preset-stage-1": "6.13.0",
     "babel-register": "6.14.0",
-    "browser-sync": "^2.17.5",
-    "chai": "^3.5.0",
-    "css-loader": "^0.25.0",
-    "html-webpack-plugin": "^2.24.0",
+    "browserify": "^14.4.0",
     "json-loader": "^0.5.4",
-    "mocha": "3.0.2",
-    "postcss-loader": "^1.0.0",
-    "style-loader": "^0.13.1",
+    "covert": "^1.1.0",
+    "eslint": "^3.19.0",
+    "evalmd": "^0.0.17",
+    "iconv-lite": "^0.4.17",
+    "mkdirp": "^0.5.1",
+    "parallelshell": "^2.0.0",
+    "qs-iconv": "^1.0.4",
+    "safe-publish-latest": "^1.1.1",
+    "tape": "^4.6.3",
     "webpack": "^1.13.2",
-    "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.13.0"
+    "webpack-dev-middleware": "^1.8.4"
   },
   "dependencies": {
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
     "commonmark": "^0.26.0",
+    "coverify": "^1.4.1",
+    "flow": "^0.2.3",
     "lodash": "^4.16.4",
     "quill-delta": "^3.4.0"
   }

@@ -1,0 +1,12 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "flowtype-errors"
+  ],
+  "rules": {
+    "flowtype-errors/show-errors": 2
+  },
+  "globals": {
+    "Routing": true
+  }
+}
