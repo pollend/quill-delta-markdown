@@ -1,9 +1,3 @@
-const _preInline: [] = {
-    link: (attr, insert) => {
-        return '[' + insert  + '](' + attr.link+ ')'
-    }
-}
-
 //move inline op before and after the last character
 const _inlineOp = (insert: string,character: string) => {
     let result = insert.trim()
@@ -25,6 +19,9 @@ const _inlineOp = (insert: string,character: string) => {
 
 
 const _inline: [] = {
+    link: (attr, insert) => {
+      return '[' + insert  + '](' + attr.link+ ')'
+    },
     italic: (attr, insert) => {
         return _inlineOp(insert,'*')
     },
@@ -69,30 +66,21 @@ export default function(delta ) {
         }
 
         if (attr) {
-            for (let key in attr) {
-                if (attr.hasOwnProperty(key) && key !== null) {
-                    if (key in _preInline) {
-                        insert = _preInline[key](attr, insert)
-                    }
-                }
+
+            for(let key in _inline)
+            {
+              if (attr.hasOwnProperty(key) && key !== null) {
+                insert = _inline[key](attr, insert)
+              }
             }
 
-            for (let key in attr) {
-                if (attr.hasOwnProperty(key) && key !== null) {
-                    if (key in _inline) {
-                        insert = _inline[key](attr, insert)
-                    }
-                }
-            }
-
-            for (let key in attr) {
-                if (attr.hasOwnProperty(key) && key !== null) {
-                    if (key in _block) {
-                        if (insert === '\n') { insert = getLastLine(lines) }
-                        block = true
-                        insert = _block[key](attr, insert, extra)
-                    }
-                }
+            for(let key in _block)
+            {
+              if (attr.hasOwnProperty(key) && key !== null) {
+                if (insert === '\n') { insert = getLastLine(lines) }
+                block = true
+                insert = _block[key](attr, insert, extra)
+              }
             }
 
             if (block && lines.length >= 1) {

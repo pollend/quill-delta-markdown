@@ -96,33 +96,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        if (attr) {
-	            for (var key in attr) {
+
+	            for (var key in _inline) {
 	                if (attr.hasOwnProperty(key) && key !== null) {
-	                    if (key in _preInline) {
-	                        insert = _preInline[key](attr, insert);
-	                    }
+	                    insert = _inline[key](attr, insert);
 	                }
 	            }
 
-	            for (var _key in attr) {
+	            for (var _key in _block) {
 	                if (attr.hasOwnProperty(_key) && _key !== null) {
-	                    if (_key in _inline) {
-	                        insert = _inline[_key](attr, insert);
+	                    if (insert === '\n') {
+	                        insert = getLastLine(lines);
 	                    }
+	                    block = true;
+	                    insert = _block[_key](attr, insert, extra);
 	                }
 	            }
 
-	            for (var _key2 in attr) {
-	                if (attr.hasOwnProperty(_key2) && _key2 !== null) {
-	                    if (_key2 in _block) {
-	                        if (insert === '\n') {
-	                            insert = getLastLine(lines);
-	                        }
-	                        block = true;
-	                        insert = _block[_key2](attr, insert, extra);
-	                    }
-	                }
-	            }
+	            // for (let key in attr) {
+	            //     if (attr.hasOwnProperty(key) && key !== null) {
+	            //         if (key in _block) {
+	            //             if (insert === '\n') { insert = getLastLine(lines) }
+	            //             block = true
+	            //             insert = _block[key](attr, insert, extra)
+	            //         }
+	            //     }
+	            // }
 
 	            if (block && lines.length >= 1) {
 	                insert = '\n' + insert;
@@ -145,13 +144,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return result;
 	};
 
-	var _preInline = {
-	    link: function link(attr, insert) {
-	        return '[' + insert + '](' + attr.link + ')';
-	    }
-
-	    //move inline op before and after the last character
-	};var _inlineOp = function _inlineOp(insert, character) {
+	//move inline op before and after the last character
+	var _inlineOp = function _inlineOp(insert, character) {
 	    var result = insert.trim();
 	    var start = insert.match(/^([\s]+)/g);
 	    var end = insert.match(/([\s]+)$/g);
@@ -169,6 +163,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var _inline = {
+	    link: function link(attr, insert) {
+	        return '[' + insert + '](' + attr.link + ')';
+	    },
 	    italic: function italic(attr, insert) {
 	        return _inlineOp(insert, '*');
 	    },
